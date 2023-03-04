@@ -18,6 +18,11 @@ export interface Summary {
 	bounceRate: number;
 	visitDuration: number;
 }
+export interface SummaryReport {
+	currentPeriod: Summary;
+	previousPeriod: Summary;
+	diff: Summary;
+}
 
 export interface TopMetric {
 	name: string;

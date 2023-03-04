@@ -3,17 +3,11 @@ import customParseFormat from 'dayjs/plugin/customParseFormat';
 
 import { Interval, getGoogleAnalyticsClient, MetricType } from './interfaces';
 
-import type { Summary } from './interfaces';
+import type { SummaryReport, Summary } from './interfaces';
 
 dayjs.extend(customParseFormat);
 
-interface SummaryReport {
-	currentPeriod: Summary;
-	previousPeriod: Summary;
-	diff: Summary;
-}
-
-export async function summary({
+export async function getSummary({
 	startDate,
 	endDate
 }: {
