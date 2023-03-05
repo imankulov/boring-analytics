@@ -1,5 +1,4 @@
-import { BetaAnalyticsDataClient } from '@google-analytics/data';
-import { google } from '@google-analytics/data/build/protos/protos';
+import { BetaAnalyticsDataClient, protos } from '@google-analytics/data';
 
 import { logger } from '$lib/logger';
 import type {
@@ -12,7 +11,16 @@ import type {
 
 import { MetricType } from './interfaces';
 
-import MetricAggregation = google.analytics.data.v1beta.MetricAggregation;
+const MetricAggregation = protos.google.analytics.data.v1beta.MetricAggregation;
+
+interface IValue {
+	value?: string | null;
+}
+
+interface IRow {
+	dimensionValues?: IValue[] | null;
+	metricValues?: IValue[] | null;
+}
 
 interface Credentials {
 	projectId: string;
@@ -167,7 +175,7 @@ export class LiveGoogleAnalyticsClient implements GoogleAnalyticsClient {
 	}
 }
 
-function getFirstDimensionAndMetric(row: google.analytics.data.v1beta.IRow) {
+function getFirstDimensionAndMetric(row: IRow) {
 	if (
 		!row.dimensionValues ||
 		!row.metricValues ||
