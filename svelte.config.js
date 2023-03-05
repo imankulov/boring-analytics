@@ -4,7 +4,10 @@ import { vitePreprocess } from '@sveltejs/kit/vite';
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
 	kit: {
-		adapter: adapter()
+		adapter: adapter({
+			edge: false,
+			split: false
+		})
 	},
 	preprocess: [
 		vitePreprocess({
@@ -14,11 +17,10 @@ const config = {
 	vitePlugin: {
 		experimental: {
 			inspector: {
-				holdMode: true,
+				holdMode: true
 			}
 		}
-	}		
-
+	}
 };
 
 export default config;
