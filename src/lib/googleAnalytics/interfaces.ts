@@ -65,7 +65,7 @@ export function getGoogleAnalyticsClient(): GoogleAnalyticsClient {
 		const credentials = {
 			projectId: env.GOOGLE_ANALYTICS_PROJECT_ID,
 			clientEmail: env.GOOGLE_ANALYTICS_CLIENT_EMAIL,
-			privateKey: env.GOOGLE_ANALYTICS_PRIVATE_KEY
+			privateKey: env.GOOGLE_ANALYTICS_PRIVATE_KEY.replace(/\\n/g, '\n')
 		};
 		return new LiveGoogleAnalyticsClient(credentials, env.GOOGLE_ANALYTICS_PROPERTY_ID);
 	}
