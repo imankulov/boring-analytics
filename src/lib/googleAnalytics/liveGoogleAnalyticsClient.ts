@@ -14,12 +14,22 @@ import { MetricType } from './interfaces';
 
 import MetricAggregation = google.analytics.data.v1beta.MetricAggregation;
 
+interface Credentials {
+	projectId: string;
+	clientEmail: string;
+	privateKey: string;
+}
+
 export class LiveGoogleAnalyticsClient implements GoogleAnalyticsClient {
 	private analyticsDataClient: BetaAnalyticsDataClient;
 
-	constructor(private keyFilename: string, private propertyId: string) {
+	constructor(private credentials: Credentials, private propertyId: string) {
 		this.analyticsDataClient = new BetaAnalyticsDataClient({
-			keyFilename
+			credentials: {
+				client_email: credentials.clientEmail,
+				private_key: credentials.privateKey
+			},
+			projectId: credentials.projectId
 		});
 	}
 

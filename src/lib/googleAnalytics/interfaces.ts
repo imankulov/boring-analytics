@@ -62,10 +62,12 @@ export function getGoogleAnalyticsClient(): GoogleAnalyticsClient {
 		return new MockGoogleAnalyticsClient();
 	}
 	if (env.GOOGLE_ANALYTICS_CLIENT === 'live') {
-		return new LiveGoogleAnalyticsClient(
-			env.GOOGLE_ANALYTICS_KEY,
-			env.GOOGLE_ANALYTICS_PROPERTY_ID
-		);
+		const credentials = {
+			projectId: env.GOOGLE_ANALYTICS_PROJECT_ID,
+			clientEmail: env.GOOGLE_ANALYTICS_CLIENT_EMAIL,
+			privateKey: env.GOOGLE_ANALYTICS_PRIVATE_KEY
+		};
+		return new LiveGoogleAnalyticsClient(credentials, env.GOOGLE_ANALYTICS_PROPERTY_ID);
 	}
 	throw new Error('Unknown value for GOOGLE_ANALYTICS_CLIENT. Expected "mock" or "live"');
 }
